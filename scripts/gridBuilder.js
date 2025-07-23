@@ -5,7 +5,7 @@
   var cols = 16;
   var bombs = 40;
   var flags = bombs;
-  var remainingBombs = bombs;
+  var revealedCells = 0;
 
   var gameContainer = document.getElementById('GameGrid');
   var grid = [];
@@ -35,9 +35,6 @@
         cell.addEventListener('contextmenu', onRightClick);
       }
     }
-
-    placeBombs();
-    calculateNeighbors();
   }
 
   function placeBombs() {
@@ -45,7 +42,7 @@
     while (placed < bombs) {
       var r = Math.floor(Math.random() * rows);
       var c = Math.floor(Math.random() * cols);
-      if (!grid[r][c].isBomb) {
+      if (!grid[r][c].isBomb && !grid[r][c].revealed) {
         grid[r][c].isBomb = true;
         placed++;
       }
@@ -79,34 +76,21 @@
     if (cell.revealed) return;
     
     if (cell.flagged) {
-        cell.flagged = false;
-        cell.element.className = cell.element.className.replace(' flagged', '');
-        cell.element.innerHTML = '';
-        flags += 1;
-        if (cell.isBomb) {
-            remainingBombs += 1;
-        }
-        return;
+      cell.flagged = false;
+      cell.element.className = cell.element.className.replace(' flagged', '');
+      cell.element.innerHTML = '';
+      flags += 1;
+      return;
     }
 
     if (flags <= 0) {
-        showModal('No te quedan banderas!', 'No puedes marcar más celdas.', 'flags');
-        return;
+      showModal('No te quedan banderas!', 'No puedes marcar más celdas.', 'flags');
+      return;
     }
 
     cell.flagged = true;
     cell.element.className += ' flagged';
-    if (cell.isBomb) {
-        remainingBombs -= 1;
-    }
     flags -= 1;
-  }
-
-
-  function onCellClick(e) {
-    var r = parseInt(this.dataset.row, 10);
-    var c = parseInt(this.dataset.col, 10);
-    revealCell(r, c);
   }
 
   function onRightClick(e) {
@@ -116,13 +100,53 @@
     flagCell(r, c);
   }
 
+  function onFirstClick(r, c, event) {
+    var cell = grid[r][c];
+    cell.revealed = true;
+    cell.isBomb = false;
+    placeBombs();
+    calculateNeighbors();
+    // TBD: Crear Timer
+  }
+  
+  function revealAll() {
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var cell = grid[r][c];
+        if (!cell.revealed) {
+          cell.revealed = true;
+          cell.element.className += ' revealed';
+          if (cell.isBomb) {
+            cell.element.className += ' bomb';
+          } else if (cell.neighborBombs > 0 && !cell.flagged) {
+            cell.element.innerHTML = cell.neighborBombs;
+            cell.element.setAttribute('data-value', cell.neighborBombs);
+          }
+        }
+      }
+    }
+  }
+
+  function checkWinCondition(){
+    var cells = rows * cols;
+    var nonBombCells = cells - bombs;
+    if (revealedCells === nonBombCells) {
+      showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
+      revealAll();
+    }
+  }
+
   function revealCell(r, c) {
     var cell = grid[r][c];
-    if (cell.revealed) return;
-    if (cell.flagged) return;
+    if (cell.revealed || cell.flagged) return;
+
+    if (revealedCells === 0) {
+      onFirstClick(r, c, 'reveal');
+    }
 
     cell.revealed = true;
     cell.element.className += ' revealed';
+    revealedCells += 1;
 
     if (cell.isBomb) {
       cell.element.className += ' bomb';
@@ -146,24 +170,13 @@
         }
       }
     }
+    checkWinCondition();
   }
 
-  function revealAll() {
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols; c++) {
-        var cell = grid[r][c];
-        if (!cell.revealed) {
-          cell.revealed = true;
-          cell.element.className += ' revealed';
-          if (cell.isBomb) {
-            cell.element.className += ' bomb';
-          } else if (cell.neighborBombs > 0 && !cell.flagged) {
-            cell.element.innerHTML = cell.neighborBombs;
-            cell.element.setAttribute('data-value', cell.neighborBombs);
-          }
-        }
-      }
-    }
+  function onCellClick(e) {
+    var r = parseInt(this.dataset.row, 10);
+    var c = parseInt(this.dataset.col, 10);
+    revealCell(r, c);
   }
 
   createGrid();
