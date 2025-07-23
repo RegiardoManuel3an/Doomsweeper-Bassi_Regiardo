@@ -133,7 +133,7 @@
 
   function onFirstClick(r, c, event) {
     var img = document.querySelector('.DoomGuyIMG');
-    img.src = '.../resources/images/hudTextures/ingameAnimation.gif';
+    img.src = '/Doomsweeper-Bassi_Regiardo/resources/images/hudTextures/ingameAnimation.gif';
     
     var cell = grid[r][c];
     cell.revealed = true;
@@ -217,7 +217,7 @@
 
 function restartGame() {
   var img = document.querySelector('.DoomGuyIMG');
-  img.src = '.../resources/images/hudTextures/doomGuyIdle.png';
+  img.src = '/Doomsweeper-Bassi_Regiardo/resources/images/hudTextures/doomGuyIdle.png';
   changeDifficulty(); 
   flags = bombs; 
   revealedCells = 0;
