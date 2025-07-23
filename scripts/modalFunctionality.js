@@ -12,7 +12,7 @@ function closeModal() {
   document.getElementById('AlertModal').style.display = 'none';
 }
 
-function restartGame() {
+function playAgain(){
   closeModal();
-  location.reload();
+  document.querySelector('.DoomGuyIMG').click();
 }

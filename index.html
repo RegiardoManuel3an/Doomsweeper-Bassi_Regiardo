@@ -28,19 +28,31 @@
                 <source src="/resources/videos/background.mp4" type="video/mp4">
             </video>
             <div class="GameWindow">
-                <div class="GameHeader">
-
+                <div class="GameHUD">
+                    <div class ="GameHUDOptions">
+                        <select id="difficultySelect">
+                            <option value="easy">Facil</option>
+                            <option value="medium">Medio</option>
+                            <option value="hard">Dificil</option>
+                        </select>
+                    </div>
+                    <div class="GameHUDUsername">
+                        <input type="text" id="usernameInput" placeholder="Usuario">
+                    </div>
+                    <div class="GameHUDDoomGuy">
+                        <img src="/resources/images/hudTextures/doomGuyIdle.png" alt="Doom Guy" class="DoomGuyIMG">
+                    </div>
+                    <div class="GameHUDTimer">
+                        <span>Tiempo:</span>
+                        <placeholder id="timerPlaceholder">00:00</placeholder>
+                    </div>
+                    <div class="GameHUDFlags">
+                        <span>Banderas:</span>
+                        <span id="flagsCount">0</span>
+                    </div>
                 </div>
                 <div class="GameContent">
                     <div id="GameGrid">
-                        
-                    </div>
-                </div>
-                <div class="GameHUD">
-                    <div class="GameHUDLeft">
-                        
-                    </div>
-                    <div class="GameHUDRight">
                         
                     </div>
                 </div>
@@ -53,9 +65,9 @@
     <div id="AlertModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">You Are Dead!</h2>
-            <p id="modalMessage">💥 Encontraste un Caco!</p>
-            <button id="restartButton" onclick="restartGame()">Jugar de Nuevo</button>
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <button id="restartButton" onclick="playAgain()">Jugar de Nuevo</button>
         </div>
     </div>
 </body>

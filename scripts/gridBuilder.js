@@ -1,11 +1,42 @@
 "use strict";
 
 (function () {
-  var rows = 16;
-  var cols = 16;
-  var bombs = 40;
-  var flags = bombs;
+  var rows = 0;
+  var cols = 0;
+  var bombs = 0;
+  var flags = 0;
   var revealedCells = 0;
+
+  function changeDifficulty() {
+    var difficulty = document.getElementById('difficultySelect').value;
+    switch (difficulty) {
+      case 'easy':
+        rows = 8;
+        cols = 8;
+        bombs = 10;
+        break;
+      case 'medium':
+        rows = 12;
+        cols = 12;
+        bombs = 25;
+        break;
+      case 'hard':
+        rows = 16;
+        cols = 16;
+        bombs = 40;
+        break;
+      default:
+        rows = 8;
+        cols = 8;
+        bombs = 10;
+    }
+    flags = bombs;
+  }
+  
+  var difficultySelect = document.getElementById('difficultySelect');
+  if (difficultySelect) {
+    difficultySelect.addEventListener('change', changeDifficulty);
+  }
 
   var gameContainer = document.getElementById('GameGrid');
   var grid = [];
@@ -101,11 +132,15 @@
   }
 
   function onFirstClick(r, c, event) {
+    var img = document.querySelector('.DoomGuyIMG');
+    img.src = '../resources/images/hudTextures/ingameAnimation.gif';
+    
     var cell = grid[r][c];
     cell.revealed = true;
     cell.isBomb = false;
     placeBombs();
     calculateNeighbors();
+    
     // TBD: Crear Timer
   }
   
@@ -179,5 +214,20 @@
     revealCell(r, c);
   }
 
+
+function restartGame() {
+  var img = document.querySelector('.DoomGuyIMG');
+  img.src = '../resources/images/hudTextures/doomGuyIdle.png';
+  changeDifficulty(); 
+  flags = bombs; 
+  revealedCells = 0;
   createGrid();
+}
+
+  createGrid();
+
+  var doomGuy = document.querySelector('.DoomGuyIMG');
+  if (doomGuy) {
+    doomGuy.addEventListener('click', restartGame);
+  }
 })();
