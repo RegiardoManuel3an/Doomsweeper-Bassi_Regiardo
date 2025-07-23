@@ -1,0 +1,170 @@
+"use strict";
+
+(function () {
+  var rows = 16;
+  var cols = 16;
+  var bombs = 40;
+  var flags = bombs;
+  var remainingBombs = bombs;
+
+  var gameContainer = document.getElementById('GameGrid');
+  var grid = [];
+
+  function createGrid() {
+    gameContainer.innerHTML = '';
+    gameContainer.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+    gameContainer.style.gridTemplateRows = 'repeat(' + rows + ', 1fr)';
+    grid = [];
+
+    for (var r = 0; r < rows; r++) {
+      grid[r] = [];
+      for (var c = 0; c < cols; c++) {
+        var cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        gameContainer.appendChild(cell);
+        grid[r][c] = {
+          element: cell,
+          isBomb: false,
+          revealed: false,
+          flagged: false,
+          neighborBombs: 0
+        };
+        cell.addEventListener('click', onCellClick);
+        cell.addEventListener('contextmenu', onRightClick);
+      }
+    }
+
+    placeBombs();
+    calculateNeighbors();
+  }
+
+  function placeBombs() {
+    var placed = 0;
+    while (placed < bombs) {
+      var r = Math.floor(Math.random() * rows);
+      var c = Math.floor(Math.random() * cols);
+      if (!grid[r][c].isBomb) {
+        grid[r][c].isBomb = true;
+        placed++;
+      }
+    }
+  }
+
+  function calculateNeighbors() {
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        if (grid[r][c].isBomb) continue;
+
+        var count = 0;
+        for (var i = -1; i <= 1; i++) {
+          for (var j = -1; j <= 1; j++) {
+            var nr = r + i;
+            var nc = c + j;
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+              if (grid[nr][nc].isBomb) {
+                count++;
+              }
+            }
+          }
+        }
+        grid[r][c].neighborBombs = count;
+      }
+    }
+  }
+
+  function flagCell(r, c) {
+    var cell = grid[r][c];
+    if (cell.revealed) return;
+    
+    if (cell.flagged) {
+        cell.flagged = false;
+        cell.element.className = cell.element.className.replace(' flagged', '');
+        cell.element.innerHTML = '';
+        flags += 1;
+        if (cell.isBomb) {
+            remainingBombs += 1;
+        }
+        return;
+    }
+
+    if (flags <= 0) {
+        showModal('No te quedan banderas!', 'No puedes marcar más celdas.', 'flags');
+        return;
+    }
+
+    cell.flagged = true;
+    cell.element.className += ' flagged';
+    if (cell.isBomb) {
+        remainingBombs -= 1;
+    }
+    flags -= 1;
+  }
+
+
+  function onCellClick(e) {
+    var r = parseInt(this.dataset.row, 10);
+    var c = parseInt(this.dataset.col, 10);
+    revealCell(r, c);
+  }
+
+  function onRightClick(e) {
+    e.preventDefault();
+    var r = parseInt(this.dataset.row, 10);
+    var c = parseInt(this.dataset.col, 10);
+    flagCell(r, c);
+  }
+
+  function revealCell(r, c) {
+    var cell = grid[r][c];
+    if (cell.revealed) return;
+    if (cell.flagged) return;
+
+    cell.revealed = true;
+    cell.element.className += ' revealed';
+
+    if (cell.isBomb) {
+      cell.element.className += ' bomb';
+      cell.element.style.backgroundColor = 'red';
+      showModal('YOU ARE DEAD!', '💥 Encontraste un Caco!', 'Death');
+      revealAll();
+      return;
+    }
+
+    if (cell.neighborBombs > 0) {
+      cell.element.innerHTML = cell.neighborBombs;
+      cell.element.setAttribute('data-value', cell.neighborBombs);
+    } else {
+      for (var i = -1; i <= 1; i++) {
+        for (var j = -1; j <= 1; j++) {
+          var nr = r + i;
+          var nc = c + j;
+          if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+            revealCell(nr, nc);
+          }
+        }
+      }
+    }
+  }
+
+  function revealAll() {
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var cell = grid[r][c];
+        if (!cell.revealed) {
+          cell.revealed = true;
+          cell.element.className += ' revealed';
+          if (cell.isBomb) {
+            cell.element.className += ' bomb';
+          } else if (cell.neighborBombs > 0 && !cell.flagged) {
+            cell.element.innerHTML = cell.neighborBombs;
+            cell.element.setAttribute('data-value', cell.neighborBombs);
+          }
+        }
+      }
+    }
+  }
+
+  createGrid();
+})();

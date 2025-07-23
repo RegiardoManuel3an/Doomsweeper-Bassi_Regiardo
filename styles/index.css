@@ -1,8 +1,20 @@
+@font-face {
+    font-family: "DooM";
+    src: url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.eot");
+    src: url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.svg#DooM")format("svg");
+}
+
 .Header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 30%;
 }
 
 .HeaderTop {
@@ -39,12 +51,19 @@
     margin: 0 15px;
 }
 
+.Content {
+    width: 100%;
+    height: 60%;
+    margin: 0 auto;
+}
+
 .Footer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 30%;
     padding: 10px;
     border-top: solid 1px #000;
 }
@@ -64,13 +83,141 @@
 .GameWindow {
     position: relative;
     width: 100%;
-    max-width: 800px;
-    height: 80%;
+    height: 100%;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffffcc;
+    box-shadow: 0 4px 8px #00000033;
+    display: flex;
+    flex-direction: column;
+}
+
+.GameHeader {
+    display: flex;
+    height: 5%;
+    width: 100%;
+    background-color: #000;
+}
+
+.GameContent {
+    display: flex;
+    height: 90%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#GameGrid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    background-color: #111;
+    border: 4px solid #880000;
+    margin: 2.5% 2.5% 2.5% 2.5%;
+    width: 95%;
+    height: 95%;
+}
+
+.cell {
+  height: 100%;
+  width: 100%;
+  background-image: url('../resources/images/cellTextures/cell.png');
+  background-size: cover; 
+  border: 1px solid #222; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cell.revealed {
+  background-image: url('../resources/images/cellTextures/cellRevealed.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "DooM", monospace;
+  font-size: large;
+  color: rgb(155, 10, 10);
+  background-color: #999;
+  cursor: default;
+}
+
+.cell.bomb {
+  background-image: url('../resources/images/cellTextures/cellBomb.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cell.flagged {
+  background-image: url('../resources/images/cellTextures/cellFlagged.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUD {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-image: url('../resources/images/hudTextures/hudPlaceholder.png');
+    height: 10%;
+    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  font-family: 'DooM', monospace;
+}
+
+.modal-content {
+  background-color: #fefefecc;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+  color: #000;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.modal button {
+  margin: 20px auto;
+  padding: 10px 15px;
+  font-weight: bold;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #222;
 }
 
 @media screen and (min-width: 768px) {
