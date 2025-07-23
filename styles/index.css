@@ -187,7 +187,6 @@ body {
   flex-direction: row;
   align-items: center;
   justify-items: center;
-  /*background-image: url('../resources/images/hudTextures/hudPlaceholder.png');*/
   height: 10%;
   width: 100%;
 }
