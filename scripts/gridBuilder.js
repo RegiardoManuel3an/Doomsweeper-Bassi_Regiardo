@@ -1,11 +1,18 @@
 "use strict";
 
 (function () {
+  // Handler para correr en Local y en GitHubPages sin problemas
+  var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var base = document.createElement('base');
+  base.href = isLocal ? '/' : '/Doomsweeper-Bassi_Regiardo/';
+  document.head.appendChild(base);
+
   var rows = 0;
   var cols = 0;
   var bombs = 0;
   var flags = 0;
   var revealedCells = 0;
+  var timerId = null;
 
   function changeDifficulty() {
     var difficulty = document.getElementById('difficultySelect').value;
@@ -131,17 +138,40 @@
     flagCell(r, c);
   }
 
+  function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var secs = seconds % 60;
+    return (minutes < 10 ? '0' : '') + minutes + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  function startTimer() {
+    var timer = document.getElementById('timerPlaceholder');
+    var seconds = 0;
+    if (timerId === null){
+      timerId = setInterval(function() {
+        seconds++;
+        timer.innerHTML = formatTime(seconds);
+      }, 1000); 
+    }
+  }
+
+  function stopTimer() {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    }
+  }
+
   function onFirstClick(r, c, event) {
     var img = document.querySelector('.DoomGuyIMG');
-    img.src = '/Doomsweeper-Bassi_Regiardo/resources/images/hudTextures/ingameAnimation.gif';
+    img.src = base.href + 'resources/images/hudTextures/ingameAnimation.gif';
     
     var cell = grid[r][c];
     cell.revealed = true;
     cell.isBomb = false;
     placeBombs();
     calculateNeighbors();
-    
-    // TBD: Crear Timer
+    startTimer();
   }
   
   function revealAll() {
@@ -166,6 +196,7 @@
     var cells = rows * cols;
     var nonBombCells = cells - bombs;
     if (revealedCells === nonBombCells) {
+      stopTimer();
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
@@ -187,6 +218,7 @@
       cell.element.className += ' bomb';
       cell.element.style.backgroundColor = 'red';
       showModal('YOU ARE DEAD!', '💥 Encontraste un Caco!', 'Death');
+      stopTimer();
       revealAll();
       return;
     }
@@ -217,7 +249,8 @@
 
 function restartGame() {
   var img = document.querySelector('.DoomGuyIMG');
-  img.src = '/Doomsweeper-Bassi_Regiardo/resources/images/hudTextures/doomGuyIdle.png';
+  img.src = base.href + 'resources/images/hudTextures/doomGuyIdle.png';
+  stopTimer();
   changeDifficulty(); 
   flags = bombs; 
   revealedCells = 0;
