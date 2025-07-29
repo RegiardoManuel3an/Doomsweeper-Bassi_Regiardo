@@ -140,7 +140,7 @@ body {
 .cell {
   height: 100%;
   width: 100%;
-  background-image: url('../resources/images/cellTextures/cell.png');
+  background-image: url('/resources/images/cellTextures/cell.png');
   background-size: cover; 
   border: 1px solid #222; 
   display: flex;
@@ -157,8 +157,8 @@ body {
 }
 
 .cell.revealed {
-  background-image: url('../resources/images/cellTextures/cellRevealed.png');
-  background-size: cover;
+  background-image: url('/resources/images/cellTextures/cellRevealed.png');
+  background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
   font-family: "DooM", monospace;
@@ -169,14 +169,14 @@ body {
 }
 
 .cell.bomb {
-  background-image: url('../resources/images/cellTextures/cellBomb.png');
-  background-size: cover;
+  background-image: url('/resources/images/cellTextures/cellBomb.png');
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .cell.flagged {
-  background-image: url('../resources/images/cellTextures/cellFlagged.png');
+  background-image: url('/resources/images/cellTextures/cellFlagged.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -194,7 +194,7 @@ body {
 .GameHUDOptions {
   height: 100%;
   width: 22.5%;
-  background-image: url('../resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -219,7 +219,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('../resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -244,7 +244,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 10%;
-  background-image: url('../resources/images/hudTextures/doomGuyBox.PNG');
+  background-image: url('/resources/images/hudTextures/doomGuyBox.PNG');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -274,7 +274,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('../resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -311,7 +311,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('../resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -395,7 +395,7 @@ body {
     }
 
     .GameWindow {
-        width: auto;
+        width: 40em;
         max-width: 40em;
         height: 100%;
     }
@@ -403,7 +403,7 @@ body {
 
 @media screen and (min-width: 1024px) {
     .GameWindow {
-        width: 60em;
+        width: 50em;
         max-width: 60em;
         height: 100%;
     }
