@@ -140,7 +140,7 @@ body {
 .cell {
   height: 100%;
   width: 100%;
-  background-image: url('/resources/images/cellTextures/cell.png');
+  background-image: url('./resources/images/cellTextures/cell.png');
   background-size: cover; 
   border: 1px solid #222; 
   display: flex;
@@ -157,10 +157,14 @@ body {
 }
 
 .cell.revealed {
+<<<<<<< HEAD
   background-image: url('/resources/images/cellTextures/cellRevealed.png');
 <<<<<<< HEAD
   background-size: auto;
 =======
+=======
+  background-image: url('./resources/images/cellTextures/cellRevealed.png');
+>>>>>>> 258b4a9 (Correccion para visualizacion en GitHubPages)
   background-size: cover;
 >>>>>>> 508103f (Correccion para visualizacion en GitHubPages)
   background-position: center;
@@ -173,10 +177,14 @@ body {
 }
 
 .cell.bomb {
+<<<<<<< HEAD
   background-image: url('/resources/images/cellTextures/cellBomb.png');
 <<<<<<< HEAD
   background-size: contain;
 =======
+=======
+  background-image: url('./resources/images/cellTextures/cellBomb.png');
+>>>>>>> 258b4a9 (Correccion para visualizacion en GitHubPages)
   background-size: cover;
 >>>>>>> 508103f (Correccion para visualizacion en GitHubPages)
   background-position: center;
@@ -184,7 +192,7 @@ body {
 }
 
 .cell.flagged {
-  background-image: url('/resources/images/cellTextures/cellFlagged.png');
+  background-image: url('./resources/images/cellTextures/cellFlagged.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
