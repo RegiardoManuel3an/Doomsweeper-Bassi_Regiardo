@@ -38,6 +38,7 @@
         bombs = 10;
     }
     flags = bombs;
+    contadorBanderas();
   }
   
   var difficultySelect = document.getElementById('difficultySelect');
@@ -118,6 +119,7 @@
       cell.element.className = cell.element.className.replace(' flagged', '');
       cell.element.innerHTML = '';
       flags += 1;
+      contadorBanderas();
       return;
     }
 
@@ -129,6 +131,7 @@
     cell.flagged = true;
     cell.element.className += ' flagged';
     flags -= 1;
+    contadorBanderas();
   }
 
   function onRightClick(e) {
@@ -197,10 +200,31 @@
     var nonBombCells = cells - bombs;
     if (revealedCells === nonBombCells) {
       stopTimer();
+      const difficulty = document.getElementById("difficultySelect").value;
+      const timeStr = document.getElementById("timerPlaceholder").innerText;
+    saveGameRecord(timeStr, difficulty);
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
   }
+  function saveGameRecord(timeStr, difficulty) {
+  const input = document.getElementById("usernameInput");
+  let name = input ? input.value.toUpperCase().trim() : "???";
+
+  // Asegurar solo 3 letras
+  name = name.replace(/[^A-Z]/g, "").substring(0, 3);
+  if (name.length < 3) {
+    name = name.padEnd(3, "_"); // Ej: "A_" → "A__"
+  }
+
+  const date = new Date().toLocaleString();
+  const record = { name, date, time: timeStr, difficulty };
+
+  const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
+  history.push(record);
+  localStorage.setItem("doomsweeperHistory", JSON.stringify(history));
+}
+  
 
   function revealCell(r, c) {
     var cell = grid[r][c];
@@ -247,7 +271,7 @@
   }
 
 
-function restartGame() {
+  function restartGame() {
   var img = document.querySelector('.DoomGuyIMG');
   img.src = base.href + 'resources/images/hudTextures/doomGuyIdle.png';
   stopTimer();
@@ -256,11 +280,88 @@ function restartGame() {
   revealedCells = 0;
   createGrid();
 }
+function openScoreboardModal() {
+  const modal = document.getElementById("ScoreboardModal");
+  const content = document.getElementById("scoreboardContent");
+ const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
+
+  let html = "<h3>🏆 Historial de Partidas</h3>";
+  if (history.length === 0) {
+    html += "<p>No hay partidas registradas 😢</p>";
+  } else {
+    html += '<ul style="list-style-type: none; padding: 0;">';
+    history.forEach(record => {
+      html += `<li style="margin-bottom: 8px;">
+        <strong>${record.name}</strong> – ${record.difficulty} – ${record.time} – ${record.date}
+      </li>`;
+    });
+    html += '</ul>';
+  }
+
+  content.innerHTML = html;
+  modal.style.display = "block";
+}
+function sortScoreboardBy(criteria) {
+  const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
+
+  if (criteria === "date") {
+    history.sort((a, b) => {
+      // Parseamos como fechas reales
+      return new Date(b.date) - new Date(a.date); // más reciente arriba
+    });
+  }
+
+  if (criteria === "time") {
+    history.sort((a, b) => {
+      // Convertir de "mm:ss" a segundos para comparar
+      const toSeconds = (str) => {
+        const [min, sec] = str.split(":").map(Number);
+        return min * 60 + sec;
+      };
+      return toSeconds(a.time) - toSeconds(b.time); // menor tiempo arriba
+    });
+  }
+
+  // Volver a mostrarlo con nuevo orden
+  const content = document.getElementById("scoreboardContent");
+  let html = "<h3> Historial de Partidas</h3>";
+  if (history.length === 0) {
+    html += "<p>No hay partidas registradas 😢</p>";
+  } else {
+    html += '<ul style="list-style-type: none; padding: 0;">';
+    history.forEach(record => {
+      html += `<li style="margin-bottom: 8px;">
+        <strong>${record.name}</strong> – ${record.difficulty} – ${record.time} – ${record.date}
+      </li>`;
+    });
+    html += '</ul>';
+  }
+
+  content.innerHTML = html;
+}
+window.sortScoreboardBy = sortScoreboardBy;
+
+function closeScoreboardModal() {
+  const modal = document.getElementById("ScoreboardModal");
+  modal.style.display = "none";
+}
+window.closeScoreboardModal = closeScoreboardModal;
+function contadorBanderas() {
+    var contador = document.getElementById('flagsCount');
+    if (contador) {
+      contador.innerHTML = flags;
+    }
+}
 
   createGrid();
 
-  var doomGuy = document.querySelector('.DoomGuyIMG');
-  if (doomGuy) {
+var doomGuy = document.querySelector('.DoomGuyIMG');
+if (doomGuy) {
     doomGuy.addEventListener('click', restartGame);
-  }
+}
+var historyButton = document.getElementById("timerPlaceholder");
+if (historyButton) {
+  historyButton.addEventListener("click", openScoreboardModal);
+}
+
 })();

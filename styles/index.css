@@ -376,6 +376,31 @@ body {
 .modal button:hover {
   background: #222;
 }
+#ScoreboardModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Contenido del modal */
+#ScoreboardModal .modal-content {
+  background-color: #1c1c1c;
+  color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px #000;
+  width: 90%;
+  max-width: 500px;
+}
 
 @media screen and (min-width: 768px) {
     .VideoContainer video {
@@ -399,8 +424,19 @@ body {
         max-width: 40em;
         height: 100%;
     }
-}
+    #ScoreboardModal {
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 40px;
+  }
 
+    #ScoreboardModal .modal-content {
+      margin-top: 60px;
+      border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+}
+  
 @media screen and (min-width: 1024px) {
     .GameWindow {
         width: 50em;
@@ -412,4 +448,49 @@ body {
         height: 90%;
         width: 100%;
     }
+}
+#ScoreboardModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Modal centrado visualmente */
+#ScoreboardModal .modal-content {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 500px;
+  background-color: #1c1c1c;
+  color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #000;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ✅ Vista TABLET y DESKTOP (derecha tipo sidebar) */
+@media screen and (min-width: 768px) {
+  #ScoreboardModal {
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 60px 40px 40px 40px;
+  }
+
+  #ScoreboardModal .modal-content {
+    width: 350px;
+    max-width: 400px;
+    height: auto;
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }

@@ -70,5 +70,17 @@
             <button id="restartButton" onclick="playAgain()">Jugar de Nuevo</button>
         </div>
     </div>
+    <div id="ScoreboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeScoreboardModal()">&times;</span>
+            <h2>Scoreboard</h2>
+             <div style="margin-bottom: 10px;">
+                <button onclick="sortScoreboardBy('date')">Ordenar por Fecha</button>
+                <button onclick="sortScoreboardBy('time')">Ordenar por Tiempo</button>
+            </div>
+            <div id="scoreboardContent"></div>
+            <button onclick="closeScoreboardModal()">Cerrar</button>
+        </div>
+    </div>
 </body>
 </html>
