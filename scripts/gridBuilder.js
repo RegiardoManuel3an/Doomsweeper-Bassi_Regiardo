@@ -7,6 +7,8 @@
   base.href = isLocal ? '/' : '/Doomsweeper-Bassi_Regiardo/';
   document.head.appendChild(base);
 
+  openGitHubPage();
+
   var rows = 0;
   var cols = 0;
   var bombs = 0;
@@ -88,6 +90,14 @@
     }
   }
 
+  function openGitHubPage(){
+    var nav = document.getElementById("GitHubPage");
+    nav.addEventListener("click", function(event){
+      event.preventDefault();
+      window.open("https://github.com/RegiardoManuel3an/Doomsweeper-Bassi_Regiardo", "_blank");
+    })
+  }
+
   function calculateNeighbors() {
     for (var r = 0; r < rows; r++) {
       for (var c = 0; c < cols; c++) {
@@ -160,6 +170,9 @@
         timer.innerHTML = formatTime(seconds);
       }, 1000); 
     }
+
+    var input = document.querySelector("#usernameInput");
+    input.disabled = true;
   }
 
   function stopTimer() {
@@ -167,9 +180,17 @@
       clearInterval(timerId);
       timerId = null;
     }
+    var input = document.querySelector("#usernameInput");
+    input.disabled = false;
   }
 
   function onFirstClick(r, c, event) {
+
+    var usercheck = checkUserName();
+    if (!usercheck) {
+      return;
+    }
+
     var img = document.querySelector('.DoomGuyIMG');
     img.src = base.href + "resources/images/hudTextures/ingameAnimation.gif";
     
@@ -231,6 +252,10 @@
     var cell = grid[r][c];
     if (cell.revealed || cell.flagged) return;
 
+    if(!checkUserName()){
+      return;
+    }
+
     if (revealedCells === 0) {
       onFirstClick(r, c, 'reveal');
     }
@@ -280,18 +305,25 @@
     revealCell(r, c);
   }
 
-
-  function restartGame() {
-  var input = document.querySelector("#usernameInput");
-  if (input == null || input.value.trim() === "") {
+  function checkUserName(){
+    var input = document.querySelector("#usernameInput");
+    if (input == null || input.value.trim() === "") {
     showModal('Nombre invalido', 'Por favor, ingresa tu nombre (solo letras, maximo 3 caracteres).', 'NameError');
     input.style.borderColor = "red";
     input.style.borderStyle = "solid";
     input.style.borderWidth = "3px";
-    return;
+    return false;
+    }
+    input.style.borderColor = "black";
+    return true;
   }
+
+  function restartGame() {
   
-  input.style.borderColor = "black";
+    if(!checkUserName()){
+    return;
+    }
+
   var img = document.querySelector('.DoomGuyIMG');
   img.src = base.href + "resources/images/hudTextures/doomGuyIdle.png";
   stopTimer();
