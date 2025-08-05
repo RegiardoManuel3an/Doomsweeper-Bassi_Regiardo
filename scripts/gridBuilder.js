@@ -200,32 +200,26 @@
     var nonBombCells = cells - bombs;
     if (revealedCells === nonBombCells) {
       stopTimer();
-      const difficulty = document.getElementById("difficultySelect").value;
-      const timeStr = document.getElementById("timerPlaceholder").innerText;
+      var difficulty = document.getElementById("difficultySelect").value;
+      var timeStr = document.getElementById("timerPlaceholder").innerText;
     saveGameRecord(timeStr, difficulty);
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
   }
   function saveGameRecord(timeStr, difficulty) {
-  const input = document.getElementById("usernameInput");
-  let name = input ? input.value.toUpperCase().trim() : "???";
-
-  // Asegurar solo 3 letras
+  var input = document.getElementById("usernameInput");
+  var name = input ? input.value.toUpperCase().trim() : "???";
   name = name.replace(/[^A-Z]/g, "").substring(0, 3);
   if (name.length < 3) {
     name = name.padEnd(3, "_"); // Ej: "A_" → "A__"
   }
-
-  const date = new Date().toLocaleString();
-  const record = { name, date, time: timeStr, difficulty };
-
-  const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
+  var date = new Date().toLocaleString();
+  var record = { name, date, time: timeStr, difficulty };
+  var history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
   history.push(record);
   localStorage.setItem("doomsweeperHistory", JSON.stringify(history));
 }
-  
-
   function revealCell(r, c) {
     var cell = grid[r][c];
     if (cell.revealed || cell.flagged) return;
@@ -281,19 +275,19 @@
   createGrid();
 }
 function openScoreboardModal() {
-  const modal = document.getElementById("ScoreboardModal");
-  const content = document.getElementById("scoreboardContent");
- const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
+  var modal = document.getElementById("ScoreboardModal");
+  var content = document.getElementById("scoreboardContent");
+  var history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
 
-  let html = "<h3>🏆 Historial de Partidas</h3>";
+  var html = "<h3>Historial de Partidas</h3>";
   if (history.length === 0) {
-    html += "<p>No hay partidas registradas 😢</p>";
+    html += "<p>No hay partidas registradas.</p>";
   } else {
     html += '<ul style="list-style-type: none; padding: 0;">';
-    history.forEach(record => {
-      html += `<li style="margin-bottom: 8px;">
-        <strong>${record.name}</strong> – ${record.difficulty} – ${record.time} – ${record.date}
-      </li>`;
+    history.forEach(function(record) {
+      html += '<li style="margin-bottom: 8px;">' +
+        '<strong>' + record.name + '</strong> – ' + record.difficulty + ' – ' + record.time + ' – ' + record.date +
+        '</li>';
     });
     html += '</ul>';
   }
@@ -301,48 +295,42 @@ function openScoreboardModal() {
   content.innerHTML = html;
   modal.style.display = "block";
 }
+
+function toSeconds(str) {
+  var parts = str.split(":");
+  return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+}
 function sortScoreboardBy(criteria) {
-  const history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
-
+  var history = JSON.parse(localStorage.getItem("doomsweeperHistory")) || [];
   if (criteria === "date") {
-    history.sort((a, b) => {
-      // Parseamos como fechas reales
-      return new Date(b.date) - new Date(a.date); // más reciente arriba
+    history.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
     });
   }
-
   if (criteria === "time") {
-    history.sort((a, b) => {
-      // Convertir de "mm:ss" a segundos para comparar
-      const toSeconds = (str) => {
-        const [min, sec] = str.split(":").map(Number);
-        return min * 60 + sec;
-      };
-      return toSeconds(a.time) - toSeconds(b.time); // menor tiempo arriba
+    history.sort(function (a, b) {
+      return toSeconds(a.time) - toSeconds(b.time);
     });
   }
-
-  // Volver a mostrarlo con nuevo orden
-  const content = document.getElementById("scoreboardContent");
-  let html = "<h3> Historial de Partidas</h3>";
+  var content = document.getElementById("scoreboardContent");
+  var html = "<h3>Historial de Partidas</h3>";
   if (history.length === 0) {
-    html += "<p>No hay partidas registradas 😢</p>";
+    html += "<p>No hay partidas registradas.</p>";
   } else {
     html += '<ul style="list-style-type: none; padding: 0;">';
-    history.forEach(record => {
-      html += `<li style="margin-bottom: 8px;">
-        <strong>${record.name}</strong> – ${record.difficulty} – ${record.time} – ${record.date}
-      </li>`;
+    history.forEach(function(record) {
+      html += '<li style="margin-bottom: 8px;">' +
+        '<strong>' + record.name + '</strong> – ' + record.difficulty + ' – ' + record.time + ' – ' + record.date +
+        '</li>';
     });
     html += '</ul>';
   }
-
   content.innerHTML = html;
 }
 window.sortScoreboardBy = sortScoreboardBy;
 
 function closeScoreboardModal() {
-  const modal = document.getElementById("ScoreboardModal");
+  var modal = document.getElementById("ScoreboardModal");
   modal.style.display = "none";
 }
 window.closeScoreboardModal = closeScoreboardModal;
