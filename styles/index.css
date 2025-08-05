@@ -140,7 +140,7 @@ body {
 .cell {
   height: 100%;
   width: 100%;
-  background-image: url('/resources/images/cellTextures/cell.png');
+  background-image: url('resources/images/cellTextures/cell.png');
   background-size: cover; 
   border: 1px solid #222; 
   display: flex;
@@ -157,24 +157,8 @@ body {
 }
 
 .cell.revealed {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  background-image: url('/resources/images/cellTextures/cellRevealed.png');
-<<<<<<< HEAD
-  background-size: auto;
-=======
-=======
-  background-image: url('./resources/images/cellTextures/cellRevealed.png');
->>>>>>> 258b4a9 (Correccion para visualizacion en GitHubPages)
-=======
   background-image: url('resources/images/cellTextures/cellRevealed.png');
->>>>>>> d83789d (Correcciones Estilo)
-=======
-  background-image: url('/resources/images/cellTextures/cellRevealed.png');
->>>>>>> 5a3cee3 (Cambios design para GHPages)
-  background-size: cover;
->>>>>>> 508103f (Correccion para visualizacion en GitHubPages)
+  background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
   font-family: "DooM", monospace;
@@ -185,30 +169,15 @@ body {
 }
 
 .cell.bomb {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  background-image: url('/resources/images/cellTextures/cellBomb.png');
-<<<<<<< HEAD
   background-size: contain;
-=======
-=======
-  background-image: url('./resources/images/cellTextures/cellBomb.png');
->>>>>>> 258b4a9 (Correccion para visualizacion en GitHubPages)
-=======
   background-image: url('resources/images/cellTextures/cellBomb.png');
->>>>>>> d83789d (Correcciones Estilo)
-=======
-  background-image: url('/resources/images/cellTextures/cellBomb.png');
->>>>>>> 5a3cee3 (Cambios design para GHPages)
   background-size: cover;
->>>>>>> 508103f (Correccion para visualizacion en GitHubPages)
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .cell.flagged {
-  background-image: url('/resources/images/cellTextures/cellFlagged.png');
+  background-image: url('resources/images/cellTextures/cellFlagged.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -226,7 +195,7 @@ body {
 .GameHUDOptions {
   height: 100%;
   width: 22.5%;
-  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -251,7 +220,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -276,7 +245,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 10%;
-  background-image: url('/resources/images/hudTextures/doomGuyBox.PNG');
+  background-image: url('resources/images/hudTextures/doomGuyBox.PNG');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -306,7 +275,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -343,7 +312,7 @@ body {
   justify-content: center;
   height: 100%;
   width: 22.5%;
-  background-image: url('/resources/images/hudTextures/hudBoxBackground1.png');
+  background-image: url('resources/images/hudTextures/hudBoxBackground1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

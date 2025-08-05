@@ -113,6 +113,10 @@
   function flagCell(r, c) {
     var cell = grid[r][c];
     if (cell.revealed) return;
+
+    var sonidoFlag = new Audio(base.href + 'resources/audio/sfx/cellFlag.wav');
+    sonidoFlag.currentTime = 0;
+    sonidoFlag.play();
     
     if (cell.flagged) {
       cell.flagged = false;
@@ -202,7 +206,12 @@
       stopTimer();
       var difficulty = document.getElementById("difficultySelect").value;
       var timeStr = document.getElementById("timerPlaceholder").innerText;
-    saveGameRecord(timeStr, difficulty);
+      saveGameRecord(timeStr, difficulty);
+      var img = document.querySelector('.DoomGuyIMG');
+      img.src = base.href + 'resources/images/hudTextures/doomGuySmile.png';
+
+      var img = document.querySelector('.cell.bomb');
+      img.src = base.href + 'resources/images/hudTextures/cacodemonDying.gif';
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
@@ -227,6 +236,9 @@
     if (revealedCells === 0) {
       onFirstClick(r, c, 'reveal');
     }
+    
+    var sonidoReveal = new Audio(base.href + 'resources/audio/sfx/cellReveal.wav');
+    var sonidoBomb = new Audio(base.href + 'resources/audio/sfx/cellBomb.wav');
 
     cell.revealed = true;
     cell.element.className += ' revealed';
@@ -235,11 +247,17 @@
     if (cell.isBomb) {
       cell.element.className += ' bomb';
       cell.element.style.backgroundColor = 'red';
+      sonidoBomb.play();
       showModal('YOU ARE DEAD!', '💥 Encontraste un Caco!', 'Death');
+      var img = document.querySelector('.DoomGuyIMG');
+      img.src = base.href + 'resources/images/hudTextures/doomGuyMelt.gif';
       stopTimer();
       revealAll();
       return;
     }
+
+    sonidoReveal.currentTime = 0;
+    sonidoReveal.play();
 
     if (cell.neighborBombs > 0) {
       cell.element.innerHTML = cell.neighborBombs;
@@ -266,6 +284,16 @@
 
 
   function restartGame() {
+  var input = document.querySelector("#usernameInput");
+  if (input == null || input.value.trim() === "") {
+    showModal('Nombre invalido', 'Por favor, ingresa tu nombre (solo letras, maximo 3 caracteres).', 'NameError');
+    input.style.borderColor = "red";
+    input.style.borderStyle = "solid";
+    input.style.borderWidth = "3px";
+    return;
+  }
+  
+  input.style.borderColor = "black";
   var img = document.querySelector('.DoomGuyIMG');
   img.src = base.href + 'resources/images/hudTextures/doomGuyIdle.png';
   stopTimer();
