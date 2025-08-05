@@ -210,8 +210,6 @@
       var img = document.querySelector('.DoomGuyIMG');
       img.src = base.href + "resources/images/hudTextures/doomGuySmile.png";
 
-      var img = document.querySelector('.cell.bomb');
-      img.src = base.href + 'resources/images/hudTextures/cacodemonDying.gif';
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
