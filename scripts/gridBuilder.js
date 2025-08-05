@@ -114,7 +114,7 @@
     var cell = grid[r][c];
     if (cell.revealed) return;
 
-    var sonidoFlag = new Audio(base.href + 'resources/audio/sfx/cellFlag.wav');
+    var sonidoFlag = new Audio(base.href + "resources/audio/sfx/cellFlag.wav");
     sonidoFlag.currentTime = 0;
     sonidoFlag.play();
     
@@ -171,7 +171,7 @@
 
   function onFirstClick(r, c, event) {
     var img = document.querySelector('.DoomGuyIMG');
-    img.src = base.href + 'resources/images/hudTextures/ingameAnimation.gif';
+    img.src = base.href + "resources/images/hudTextures/ingameAnimation.gif";
     
     var cell = grid[r][c];
     cell.revealed = true;
@@ -208,7 +208,7 @@
       var timeStr = document.getElementById("timerPlaceholder").innerText;
       saveGameRecord(timeStr, difficulty);
       var img = document.querySelector('.DoomGuyIMG');
-      img.src = base.href + 'resources/images/hudTextures/doomGuySmile.png';
+      img.src = base.href + "resources/images/hudTextures/doomGuySmile.png";
 
       var img = document.querySelector('.cell.bomb');
       img.src = base.href + 'resources/images/hudTextures/cacodemonDying.gif';
@@ -237,8 +237,8 @@
       onFirstClick(r, c, 'reveal');
     }
     
-    var sonidoReveal = new Audio(base.href + 'resources/audio/sfx/cellReveal.wav');
-    var sonidoBomb = new Audio(base.href + 'resources/audio/sfx/cellBomb.wav');
+    var sonidoReveal = new Audio(base.href + "resources/audio/sfx/cellReveal.wav");
+    var sonidoBomb = new Audio(base.href + "resources/audio/sfx/cellBomb.wav");
 
     cell.revealed = true;
     cell.element.className += ' revealed';
@@ -250,7 +250,7 @@
       sonidoBomb.play();
       showModal('YOU ARE DEAD!', '💥 Encontraste un Caco!', 'Death');
       var img = document.querySelector('.DoomGuyIMG');
-      img.src = base.href + 'resources/images/hudTextures/doomGuyMelt.gif';
+      img.src = base.href + "resources/images/hudTextures/doomGuyMelt.gif";
       stopTimer();
       revealAll();
       return;
@@ -295,7 +295,7 @@
   
   input.style.borderColor = "black";
   var img = document.querySelector('.DoomGuyIMG');
-  img.src = base.href + 'resources/images/hudTextures/doomGuyIdle.png';
+  img.src = base.href + "resources/images/hudTextures/doomGuyIdle.png";
   stopTimer();
   changeDifficulty(); 
   flags = bombs; 
