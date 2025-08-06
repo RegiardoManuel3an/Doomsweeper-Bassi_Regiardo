@@ -7,6 +7,8 @@
   base.href = isLocal ? '/' : '/Doomsweeper-Bassi_Regiardo/';
   document.head.appendChild(base);
 
+  openGitHubPage();
+
   var rows = 0;
   var cols = 0;
   var bombs = 0;
@@ -88,6 +90,14 @@
     }
   }
 
+  function openGitHubPage(){
+    var nav = document.getElementById("GitHubPage");
+    nav.addEventListener("click", function(event){
+      event.preventDefault();
+      window.open("https://github.com/RegiardoManuel3an/Doomsweeper-Bassi_Regiardo", "_blank");
+    })
+  }
+
   function calculateNeighbors() {
     for (var r = 0; r < rows; r++) {
       for (var c = 0; c < cols; c++) {
@@ -113,6 +123,10 @@
   function flagCell(r, c) {
     var cell = grid[r][c];
     if (cell.revealed) return;
+
+    var sonidoFlag = new Audio(base.href + "resources/audio/sfx/cellFlag.wav");
+    sonidoFlag.currentTime = 0;
+    sonidoFlag.play();
     
     if (cell.flagged) {
       cell.flagged = false;
@@ -156,6 +170,9 @@
         timer.innerHTML = formatTime(seconds);
       }, 1000); 
     }
+
+    var input = document.querySelector("#usernameInput");
+    input.disabled = true;
   }
 
   function stopTimer() {
@@ -163,11 +180,19 @@
       clearInterval(timerId);
       timerId = null;
     }
+    var input = document.querySelector("#usernameInput");
+    input.disabled = false;
   }
 
   function onFirstClick(r, c, event) {
+
+    var usercheck = checkUserName();
+    if (!usercheck) {
+      return;
+    }
+
     var img = document.querySelector('.DoomGuyIMG');
-    img.src = base.href + 'resources/images/hudTextures/ingameAnimation.gif';
+    img.src = base.href + "resources/images/hudTextures/ingameAnimation.gif";
     
     var cell = grid[r][c];
     cell.revealed = true;
@@ -202,7 +227,10 @@
       stopTimer();
       var difficulty = document.getElementById("difficultySelect").value;
       var timeStr = document.getElementById("timerPlaceholder").innerText;
-    saveGameRecord(timeStr, difficulty);
+      saveGameRecord(timeStr, difficulty);
+      var img = document.querySelector('.DoomGuyIMG');
+      img.src = base.href + "resources/images/hudTextures/doomGuySmile.png";
+
       showModal('RIP AND TEAR!', '🎉 Has ganado el juego!', 'Win');
       revealAll();
     }
@@ -224,9 +252,16 @@
     var cell = grid[r][c];
     if (cell.revealed || cell.flagged) return;
 
+    if(!checkUserName()){
+      return;
+    }
+
     if (revealedCells === 0) {
       onFirstClick(r, c, 'reveal');
     }
+    
+    var sonidoReveal = new Audio(base.href + "resources/audio/sfx/cellReveal.wav");
+    var sonidoBomb = new Audio(base.href + "resources/audio/sfx/cellBomb.wav");
 
     cell.revealed = true;
     cell.element.className += ' revealed';
@@ -235,11 +270,17 @@
     if (cell.isBomb) {
       cell.element.className += ' bomb';
       cell.element.style.backgroundColor = 'red';
+      sonidoBomb.play();
       showModal('YOU ARE DEAD!', '💥 Encontraste un Caco!', 'Death');
+      var img = document.querySelector('.DoomGuyIMG');
+      img.src = base.href + "resources/images/hudTextures/doomGuyMelt.gif";
       stopTimer();
       revealAll();
       return;
     }
+
+    sonidoReveal.currentTime = 0;
+    sonidoReveal.play();
 
     if (cell.neighborBombs > 0) {
       cell.element.innerHTML = cell.neighborBombs;
@@ -264,10 +305,27 @@
     revealCell(r, c);
   }
 
+  function checkUserName(){
+    var input = document.querySelector("#usernameInput");
+    if (input == null || input.value.trim() === "") {
+    showModal('Nombre invalido', 'Por favor, ingresa tu nombre (solo letras, maximo 3 caracteres).', 'NameError');
+    input.style.borderColor = "red";
+    input.style.borderStyle = "solid";
+    input.style.borderWidth = "3px";
+    return false;
+    }
+    input.style.borderColor = "black";
+    return true;
+  }
 
   function restartGame() {
+  
+    if(!checkUserName()){
+    return;
+    }
+
   var img = document.querySelector('.DoomGuyIMG');
-  img.src = base.href + 'resources/images/hudTextures/doomGuyIdle.png';
+  img.src = base.href + "resources/images/hudTextures/doomGuyIdle.png";
   stopTimer();
   changeDifficulty(); 
   flags = bombs; 
