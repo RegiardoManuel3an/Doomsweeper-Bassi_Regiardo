@@ -1,8 +1,34 @@
+@font-face {
+    font-family: "DooM";
+    src: url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.eot");
+    src: url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/d398da6faddf8911ef608f1e8ee6ed37.svg#DooM")format("svg");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .Header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  flex: 0 0 auto;
+  /*display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30%;*/
 }
 
 .HeaderTop {
@@ -39,14 +65,29 @@
     margin: 0 15px;
 }
 
+.Content {
+  flex: 1 1 auto;
+  display: flex;
+  display: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /*width: 100%;
+  height: 60%;
+  margin: 0 auto;*/
+}
+
 .Footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 10px;
-    border-top: solid 1px #000;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /*width: 100%;
+  height: 10%;
+  padding: 10px;*/
+  border-top: solid 1px #000;
 }
 
 .VideoContainer {
@@ -64,15 +105,408 @@
 .GameWindow {
     position: relative;
     width: 100%;
-    max-width: 800px;
-    height: 80%;
+    height: 100%;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffffcc;
+    box-shadow: 0 4px 8px #00000033;
+    display: flex;
+    flex-direction: column;
 }
 
+.GameContent {
+    display: flex;
+    flex: 1 1 auto;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    /*height: 90%;
+    width: 100%;*/
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#GameGrid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    background-color: #111;
+    border: 4px solid #880000;
+    margin: 2.5% 2.5% 2.5% 2.5%;
+    width: 95%;
+    height: 95%;
+}
+
+.cell {
+  height: 100%;
+  width: 100%;
+  background-image: url("../resources/images/cellTextures/cell.png");
+  background-size: cover; 
+  border: 1px solid #222; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cell.revealed {
+  background-image: url("../resources/images/cellTextures/cellRevealed.png");
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "DooM", monospace;
+  font-size: large;
+  color: rgb(155, 10, 10);
+  background-color: #999;
+  cursor: default;
+}
+
+.cell.bomb {
+  background-size: contain;
+  background-image: url("../resources/images/cellTextures/cellBomb.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cell.flagged {
+  background-image: url("../resources/images/cellTextures/cellFlagged.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUD {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  height: 10%;
+  width: 100%;
+}
+
+.GameHUDOptions {
+  height: 100%;
+  width: 22.5%;
+  background-image: url("../resources/images/hudTextures/hudBoxBackground1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUDOptions select {
+  width: 80%;
+  height: 60%;
+  margin: 10% 10%;
+  text-align: center;
+  background-color: #000000cc;
+  color: #ff0000;
+  font-family: 'DooM', monospace;
+  font-size: 18px;
+  border: solid 2px #000;
+  outline: none;
+}
+
+.GameHUDUsername {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 22.5%;
+  background-image: url("../resources/images/hudTextures/hudBoxBackground1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUDUsername input {
+  width: 80%;
+  height: 60%;
+  margin: 10% 10%;
+  text-align: center;
+  background-color: #000000cc;
+  color: #ff0000;
+  font-family: 'DooM', monospace;
+  font-size: 18px;
+  border: solid 2px #000;
+  outline: none;
+}
+
+.GameHUDDoomGuy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 10%;
+  background-image: url("../resources/images/hudTextures/doomGuyBox.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUDDoomGuy img {
+  width: 60%;
+  height: auto;
+}
+
+.GameHUDDoomGuy:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+  border: solid 1px yellow;
+}
+
+.GameHUDDoomGuy:active {
+  transform: scale(1);
+  transition: transform 0.1s ease;
+}
+
+.GameHUDTimer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 22.5%;
+  background-image: url("../resources/images/hudTextures/hudBoxBackground1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUDTimer span {
+  width: 80%;
+  height: 25%;
+  text-align: center;
+  background-color: #000000cc;
+  color: #ff0000;
+  font-family: 'DooM', monospace;
+  font-size: 18px;
+  border: solid 2px #000;
+  outline: none;
+}
+
+.GameHUDTimer #timerPlaceholder {
+  width: 80%;
+  height: 30%;
+  text-align: center;
+  background-color: #000000cc;
+  color: #ff0000;
+  font-family: 'DooM', monospace;
+  font-size: 15px;
+  border: solid 2px #000;
+  outline: none;
+}
+
+.GameHUDFlags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 22.5%;
+  background-image: url("../resources/images/hudTextures/hudBoxBackground1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.GameHUDFlags span {
+  width: 80%;
+  height: 25%;
+  text-align: center;
+  background-color: #000000cc;
+  color: #ff0000;
+  font-family: 'DooM', monospace;
+  font-size: 15px;
+  border: solid 2px #000;
+  outline: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  font-family: 'DooM', monospace;
+}
+
+.modal-content {
+  background-color: #fefefecc;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px black;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+  color: #000;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.modal button {
+  margin: 20px auto;
+  padding: 10px 15px;
+  font-weight: bold;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #222;
+}
+#ScoreboardModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Contenido del modal */
+#ScoreboardModal .modal-content {
+  background-color: #1c1c1c;
+  color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px #000;
+  width: 90%;
+  max-width: 500px;
+}
+body.light .GameHUDOptions,
+body.light .GameHUDUsername,
+body.light .GameHUDTimer,
+body.light .GameHUDFlags,
+body.light .GameHUDDoomGuy {
+    background-image: none !important;
+    background-color: #ffffffee !important; 
+    border: 2px solid #aaa !important;
+}
+
+body.light .GameHUDOptions select,
+body.light .GameHUDUsername input,
+body.light .GameHUDTimer span,
+body.light .GameHUDTimer #timerPlaceholder,
+body.light .GameHUDFlags span {
+    background-color: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #777 !important;
+}
+
+body.light #GameGrid {
+    background-color: #eee !important;
+    border-color: #ccc !important;
+}
+
+body.light #ScoreboardModal .modal-content {
+    background-color: #fafafa !important;
+    color: #111 !important;
+    box-shadow: 0 0 10px #999 !important;
+}
+body.light #GameGrid .cell.revealed {
+    color: #000 !important;            
+}
+
+body.light {
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+body.light .HeaderTop,
+body.light .HeaderNav,
+body.light .Footer {
+    background-color: #ffffffcc;
+    border-color: #aaa;
+}
+
+body.light .HeaderNav a {
+    color: #333;
+}
+
+body.light .GameWindow {
+    background-color: #ffffffdd;
+    box-shadow: 0 0 8px #999;
+}
+
+body.light .GameContent {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+body.light #GameGrid {
+    background-color: #ddd;
+    border-color: #666;
+}
+
+body.light .cell {
+    background-color: #fff !important;
+    border-color: #999;
+    color: #111;
+}
+
+body.light .cell.revealed {
+    background-color: #e6e6e6 !important;
+    color: #8a0000;
+}
+
+body.light .cell.flagged {
+    background-image: url("../resources/images/cellTextures/cellFlagged.png");
+    background-color: #ffe0e0;
+}
+
+body.light .cell.bomb {
+    background-image: url("../resources/images/cellTextures/cellBomb.png");
+}
+
+body.light .GameHUDOptions,
+body.light .GameHUDUsername,
+body.light .GameHUDTimer,
+body.light .GameHUDFlags {
+    filter: brightness(1.2);
+}
+
+body.light .BackgroundVideo {
+    filter: brightness(1.7) contrast(0.8) saturate(1.2);
+    opacity: 0.55;
+    transition: 0.4s ease;
+}
+
+.ThemeButton {
+    margin-left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: inherit;
+}
 @media screen and (min-width: 768px) {
     .VideoContainer video {
     display: flex;
@@ -91,6 +525,77 @@
     }
 
     .GameWindow {
-        width: 50%;
+        width: 40em;
+        max-width: 40em;
+        height: 100%;
     }
+    #ScoreboardModal {
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 40px;
+  }
+
+    #ScoreboardModal .modal-content {
+      margin-top: 60px;
+      border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+}
+  
+@media screen and (min-width: 1024px) {
+    .GameWindow {
+        width: 50em;
+        max-width: 60em;
+        height: 100%;
+    }
+
+    .GameContent {
+        height: 90%;
+        width: 100%;
+    }
+}
+#ScoreboardModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Modal centrado visualmente */
+#ScoreboardModal .modal-content {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 500px;
+  background-color: #1c1c1c;
+  color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #000;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ✅ Vista TABLET y DESKTOP (derecha tipo sidebar) */
+@media screen and (min-width: 768px) {
+  #ScoreboardModal {
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 60px 40px 40px 40px;
+  }
+
+  #ScoreboardModal .modal-content {
+    width: 350px;
+    max-width: 400px;
+    height: auto;
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }

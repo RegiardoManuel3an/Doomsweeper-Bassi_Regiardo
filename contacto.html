@@ -3,28 +3,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
-    <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/contacto.css">
+    <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/contacto.css">
 </head>
 <body>
+  <audio autoplay loop volume="0.2">
+    <source src="resources/audio/14. E2M3; INTER - Intermission From Doom.mp3" type="audio/mpeg">
+  </audio>
     <div class="Header">
         <div class="HeaderTop">
-            <img src="/resources/images/logo.png" alt="Doomsweeper Logo" class="Logo">
+            <img src="resources/images/logo.png" alt="Doomsweeper Logo" class="Logo">
         </div>
         <div class="HeaderNav">
             <ul>
-                <li><a href="/index.html">Jugar</a></li>
-                <li><a href="/contacto.html">Contacto</a></li>
+                <li><a href="index.html">Jugar</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="https://github.com/RegiardoManuel3an/Doomsweeper-Bassi_Regiardo">Github</a></li>
             </ul>
         </div>
     </div>
     <div class="Content">
-        
+        <h1 class="texto-contacto"><strong>Contacto</strong></h1>
+          <form id="formularioContacto">
+            <label for="nombre" class="texto-contacto"><b>Nombre:</b></label><br>
+            <div class="fondo-contacto" id="fondoNombre">
+              <input type="text" id="nombre" name="nombre" class="campo-contacto" placeholder="Tu nombre">
+            </div>
+            <label for="email" class="texto-contacto"><b>Email:</b></label><br>
+
+            <div class="fondo-contacto" id="fondoEmail">
+              <input type="text" id="email" name="email" class="campo-contacto" placeholder="Tu email">
+            </div>
+
+            <label for="mensaje" class="texto-contacto"><b>Mensaje:</b></label><br>
+            <div class="fondo-contacto" id="fondoMensaje">
+              <textarea id="mensaje" name="mensaje" class="campo-contacto" placeholder="Tu mensaje"></textarea>
+            </div>
+            <div id="errores" style="display:none; color:red; margin:10px 0;"></div>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
     <div class="Footer">
         <p>&copy; 2025 Doomsweeper. All rights reserved.</p>
     </div>
+  <script src="Scripts/validacionFormularioContacto.js"></script>
 </body>
 </html>

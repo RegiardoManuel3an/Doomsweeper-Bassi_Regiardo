@@ -3,36 +3,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doomsweeper</title>
-    <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/modalFunctionality.js" defer></script>
+    <script src="scripts/gridBuilder.js" defer></script>
 </head>
 <body>
+    <audio autoplay loop volume="0.2">
+        <source src="resources/audio/Doom OST - E1M1 - At Doom's Gate.mp3" type="audio/mpeg">
+    </audio>
     <div class="Header">
         <div class="HeaderTop">
-            <img src="/resources/images/logo.png" alt="Doomsweeper Logo" class="Logo">
+            <img src="resources/images/logo.png" alt="Doomsweeper Logo" class="Logo">
         </div>
         <div class="HeaderNav">
             <ul>
-                <li><a href="/index.html">Jugar</a></li>
-                <li><a href="/contacto.html">Contacto</a></li>
-                <li><a href="https://github.com/RegiardoManuel3an/Doomsweeper-Bassi_Regiardo">Github</a></li>
+                <li><a href="index.html">Jugar</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a id="GitHubPage" href="#">Github</a></li>
             </ul>
+            <button id="themeToggle" class="ThemeButton">🌓</button>
         </div>
     </div>
     <div class="Content">
         <div class="VideoContainer">
-            <video autoplay loop muted disablepictureinpicture>
-                <source src="/resources/videos/background.mp4" type="video/mp4">
+            <video class ="BackgroundVideo" autoplay loop muted disablepictureinpicture>
+                <source src="resources/videos/background.mp4" type="video/mp4">
             </video>
             <div class="GameWindow">
-                <h1>Doomsweeper</h1>
-                <p>Un juego de estrategia y supervivencia en un mundo post-apocalíptico.</p>
+                <div class="GameHUD">
+                    <div class ="GameHUDOptions">
+                        <select id="difficultySelect">
+                            <option value="easy">Facil</option>
+                            <option value="medium">Medio</option>
+                            <option value="hard">Dificil</option>
+                        </select>
+                    </div>
+                    <div class="GameHUDUsername">
+                        <input type="text" id="usernameInput" placeholder="Usuario">
+                    </div>
+                    <div class="GameHUDDoomGuy">
+                        <img src="resources/images/hudTextures/doomGuyIdle.png" alt="Doom Guy" class="DoomGuyIMG">
+                    </div>
+                    <div class="GameHUDTimer">
+                        <span>Tiempo:</span>
+                        <placeholder id="timerPlaceholder">00:00</placeholder>
+                    </div>
+                    <div class="GameHUDFlags">
+                        <span>Banderas:</span>
+                        <span id="flagsCount">0</span>
+                    </div>
+                </div>
+                <div class="GameContent">
+                    <div id="GameGrid">
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="Footer">
         <p>&copy; 2025 Doomsweeper. All rights reserved.</p>
+    </div>
+    <div id="AlertModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <button id="restartButton" onclick="playAgain()">Jugar de Nuevo</button>
+        </div>
+    </div>
+    <div id="ScoreboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeScoreboardModal()">&times;</span>
+            <h2>Scoreboard</h2>
+             <div style="margin-bottom: 10px;">
+                <button onclick="sortScoreboardBy('date')">Ordenar por Fecha</button>
+                <button onclick="sortScoreboardBy('time')">Ordenar por Tiempo</button>
+            </div>
+            <div id="scoreboardContent"></div>
+            <button onclick="closeScoreboardModal()">Cerrar</button>
+        </div>
     </div>
 </body>
 </html>
