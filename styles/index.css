@@ -402,7 +402,111 @@ body {
   width: 90%;
   max-width: 500px;
 }
+body.light .GameHUDOptions,
+body.light .GameHUDUsername,
+body.light .GameHUDTimer,
+body.light .GameHUDFlags,
+body.light .GameHUDDoomGuy {
+    background-image: none !important;
+    background-color: #ffffffee !important; 
+    border: 2px solid #aaa !important;
+}
 
+body.light .GameHUDOptions select,
+body.light .GameHUDUsername input,
+body.light .GameHUDTimer span,
+body.light .GameHUDTimer #timerPlaceholder,
+body.light .GameHUDFlags span {
+    background-color: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #777 !important;
+}
+
+body.light #GameGrid {
+    background-color: #eee !important;
+    border-color: #ccc !important;
+}
+
+body.light #ScoreboardModal .modal-content {
+    background-color: #fafafa !important;
+    color: #111 !important;
+    box-shadow: 0 0 10px #999 !important;
+}
+body.light #GameGrid .cell.revealed {
+    color: #000 !important;            
+}
+
+body.light {
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+body.light .HeaderTop,
+body.light .HeaderNav,
+body.light .Footer {
+    background-color: #ffffffcc;
+    border-color: #aaa;
+}
+
+body.light .HeaderNav a {
+    color: #333;
+}
+
+body.light .GameWindow {
+    background-color: #ffffffdd;
+    box-shadow: 0 0 8px #999;
+}
+
+body.light .GameContent {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+body.light #GameGrid {
+    background-color: #ddd;
+    border-color: #666;
+}
+
+body.light .cell {
+    background-color: #fff !important;
+    border-color: #999;
+    color: #111;
+}
+
+body.light .cell.revealed {
+    background-color: #e6e6e6 !important;
+    color: #8a0000;
+}
+
+body.light .cell.flagged {
+    background-image: url("../resources/images/cellTextures/cellFlagged.png");
+    background-color: #ffe0e0;
+}
+
+body.light .cell.bomb {
+    background-image: url("../resources/images/cellTextures/cellBomb.png");
+}
+
+body.light .GameHUDOptions,
+body.light .GameHUDUsername,
+body.light .GameHUDTimer,
+body.light .GameHUDFlags {
+    filter: brightness(1.2);
+}
+
+body.light .BackgroundVideo {
+    filter: brightness(1.7) contrast(0.8) saturate(1.2);
+    opacity: 0.55;
+    transition: 0.4s ease;
+}
+
+.ThemeButton {
+    margin-left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: inherit;
+}
 @media screen and (min-width: 768px) {
     .VideoContainer video {
     display: flex;

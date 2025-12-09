@@ -409,5 +409,24 @@ var historyButton = document.getElementById("timerPlaceholder");
 if (historyButton) {
   historyButton.addEventListener("click", openScoreboardModal);
 }
+// ---- DARK/LIGHT MODE TOGGLE ----
+var themeToggle = document.getElementById("themeToggle");
+
+// Cargar preferencia (por defecto “dark”)
+var savedTheme = localStorage.getItem("doomsweeperTheme") || "dark";
+document.body.classList.add(savedTheme);
+
+// Evento para cambiar
+if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+        var current = document.body.classList.contains("light") ? "light" : "dark";
+        var next = current === "dark" ? "light" : "dark";
+
+        document.body.classList.remove(current);
+        document.body.classList.add(next);
+
+        localStorage.setItem("doomsweeperTheme", next);
+    });
+}
 
 })();
